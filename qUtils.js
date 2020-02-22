@@ -1,10 +1,11 @@
-//Functions Plus+
-//Checks if a value is a number
+// Functions Plus+
+// Checks if a value is a number
+
 function isNumber(n) {
     return !isNaN(+n) && isFinite(n) ? n + 1 === parseFloat(n) + 1 : false;
 }
 
-//Returns a new array with values from start to end (not included);
+// Returns a new array with values from start to end (not included);
 function range(start = 0, end = 0, step = 1) {
     let result = [];
     for (let x = start; x < end; x += step) {
@@ -13,8 +14,8 @@ function range(start = 0, end = 0, step = 1) {
     return result;
 }
 
-//Math Plus+
-//Creates a new array in a statistical order
+// Math Plus+
+// Creates a new array in a statistical order
 Math.sortOrder = function (array) {
     if (array.areNumbers()) {
         const result = array.slice();
@@ -35,7 +36,7 @@ Math.sortOrder = function (array) {
         throw new Error("Array contains NaN values");
 }
 
-//Median find the average value of the statistical order
+// Median find the average value of the statistical order
 Math.median = function (array) {
     if (array.length > 0) {
         if (array.areNumbers()) {
@@ -50,7 +51,7 @@ Math.median = function (array) {
         throw new Error("Can't use Math.median on an empty array");
 }
 
-//Mode finds the most repeated value in a statistical order
+// Mode finds the most repeated value in a statistical order
 Math.mode = function (array) {
     if (array.areNumbers()) {
         let template = new Set(array);
@@ -86,7 +87,7 @@ Math.mode = function (array) {
         throw new Error("Array contains NaN values");
 }
 
-//Sums all values of an array
+// Sums all values of an array
 Math.sum = function (array) {
     if (array.areNumbers()) {
         let result = 0;
@@ -98,12 +99,12 @@ Math.sum = function (array) {
         throw new Error("Array contains NaN values")
 }
 
-//Finds the average from the values of an array
+// Finds the average from the values of an array
 Math.average = function (array) {
     return result = Math.sum(array) / array.length;
 }
 
-//Finds the factorial of a number
+// Finds the factorial of a number
 Math.factorial = function (num) {
     let total = 1;
     for (i = 0; i < num; i++) {
@@ -112,7 +113,7 @@ Math.factorial = function (num) {
     return total;
 }
 
-//Finding first element in an array
+// Finding first element in an array
 Array.prototype.first = function () {
     if (this.length > 0)
         return this[0];
@@ -120,7 +121,7 @@ Array.prototype.first = function () {
         throw new Error("Can't use .fist() on an empty array!")
 }
 
-//Finding last element in an array
+// Finding last element in an array
 Array.prototype.last = function () {
     if (this.length > 0)
         return this[this.length - 1];
@@ -128,7 +129,7 @@ Array.prototype.last = function () {
         throw new Error("Can't use .last() on an empty array!")
 }
 
-//Finds if all values are digits
+// Finds if all values are digits
 Array.prototype.areNumbers = function () {
     let result = true;
     for (let i of this) {
@@ -140,7 +141,7 @@ Array.prototype.areNumbers = function () {
     return result;
 }
 
-//Counts how many times a value is present in an array
+// Counts how many times a value is present in an array
 Array.prototype.count = function (value) {
     let result = 0;
     for (let x of this) {
@@ -148,4 +149,46 @@ Array.prototype.count = function (value) {
             result++
     }
     return result;
+}
+
+// Swaps values of two items in an array based on their indexes
+Array.prototype.swap = function (idx1, idx2) {
+    const temp = this[idx2];
+    this[idx2] = this[idx1];
+    this[idx1] = temp;
+}
+
+// Selects a random element from the array
+Array.prototype.selectRandom = function () {
+    const idx = Rand.randint(0, this.length);
+    return this[idx];
+}
+
+// Rand class methods
+class Rand {
+    // Generates a random integer between min and max, excluding max
+    static randint(min = 0, max = 2) {
+        if (min >= max) {
+            throw new Error("Wrong parameters Min/Max!");
+        }
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    // Generates a random double between min and max, excluding max
+    static randdouble(min = 0, max = 1) {
+        if (min >= max) {
+            throw new Error("Wrong parameters Min/Max!");
+        }
+        return Math.random() * (max - min) + min;
+    }
+
+    //Shuffles elements in an array
+    static shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
 }
